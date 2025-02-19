@@ -117,7 +117,9 @@ router.post('/complete-profile', authenticateToken, authorizeProUser, (req, res)
 
       const profile = await prisma.profile.create({
         data: {
-          userId: req.user.userId,
+          user: {
+            connect: { id: req.user.userId }
+          },
           fullName: req.body.fullName,
           preferredWorkLocations,
           profilePicUrl,
@@ -129,7 +131,7 @@ router.post('/complete-profile', authenticateToken, authorizeProUser, (req, res)
           experienceYears: req.body.experienceYears,
           graduationInfo: req.body.graduationInfo,
           associations: req.body.associations,
-          portfolioUrls, // Now properly parsed as array
+          portfolioUrls,
           websiteUrl: req.body.websiteUrl,
           workSetupPreference: req.body.workSetupPreference,
           preferredTimeline: req.body.preferredTimeline,
@@ -439,6 +441,7 @@ router.get('/user-details', authenticateToken, async (req, res) => {
         firstName: true,
         lastName: true,
         email: true,
+        userType: true,
         profile: {
           include: {
             projectAverages: {

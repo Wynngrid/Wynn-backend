@@ -4,11 +4,13 @@
   "description": "Backend service with authentication and onboarding",
   "main": "src/index.js",
   "type": "module",
+ 
   "scripts": {
     "start": "node src/index.js",
     "build": "npm install && npx prisma generate && npx prisma migrate deploy",
     "postinstall": "prisma generate"
   },
+  
   "dependencies": {
     "@prisma/client": "^5.7.1",
     "bcryptjs": "^2.4.3",
